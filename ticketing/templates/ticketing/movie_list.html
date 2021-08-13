@@ -1,0 +1,50 @@
+{% extends "ticketing/base_page.html" %}
+
+{% block title %}
+فهرست فیلم ها
+{% endblock title %}
+
+{% block tolbar_title %}
+فهرست فیلم ها
+{% endblock tolbar_title %}
+
+{% block tolbar_buton %}
+
+<a class="btn btn-light py-1 px-2" href="{% url "ticketing:movie_list" %}">
+    <i class="fas fa-film"></i>
+    فیلم ها
+</a>
+<a class="btn btn-light py-1 px" href="{% url "ticketing:cinema_list" %}">
+    <i class="fas fa-building"></i>
+    سینما ها
+</a>
+{% endblock tolbar_buton %}
+
+{% block main_content %}
+
+<div class="row">
+    <div class="col py-3">
+        {% if movies %}
+            {% include "ticketing/_ad.html" with company='intel' color='warning' %}
+            <ul class="item-list">
+                {% for movie in movies %}
+                    <li>
+                        <a href="{% url "ticketing:movie_details" movie_id=movie.id %}">
+                            <i class="fas fa-film"></i>
+                            {{ movie }}
+                            <small class="text-muted">
+                                ({{ movie.director }})
+                            </small>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% include "ticketing/_ad.html" with company='asus' color='success' %}
+        {% else %}
+            <div class="alert alert-danger">
+                در حال حاضر هیچ فیلمی برای نمایش وجود ندارد
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock main_content %}
